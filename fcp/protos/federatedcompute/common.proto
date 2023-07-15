@@ -150,7 +150,7 @@ message ByteStreamResource {
 // Copied from //google/rpc/status.proto.
 message Status {
   // The status code, which should be an enum value of [google.rpc.Code][].
-  Code code = 1;
+  int32 code = 1;
 
   string message = 2;
 }

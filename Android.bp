@@ -106,18 +106,24 @@ cc_library_static {
         "fcp/client/simple_task_environment.cc",
         "fcp/client/engine/*.cc",
         "fcp/tensorflow/*.cc",
-        "fcp/base/*.cc",
+        "fcp/dictionary/dictionary.cc",
+        "fcp/base/base_name.cc",
+        "fcp/base/monitoring.cc",
+        "fcp/base/platform.cc",
+        "fcp/base/clock.cc",
+        "fcp/base/random_token.cc",
+        "fcp/base/scheduler.cc",
     ],
     exclude_srcs: [
         "fcp/**/*test*.cc",
         "fcp/client/fake_*.cc",
         "fcp/client/engine/tf_*.cc",
         "fcp/tensorflow/tf_session.cc",
-        "fcp/base/string_stream.cc",
-        "fcp/base/status_converters.cc",
+    ],
+    static_libs:[
+        "federated-compute-cc-proto-lite",
     ],
     whole_static_libs: [
-        "federated-compute-cc-proto-lite",
         "libtflite_flex_delegate",
     ],
     header_libs: [
@@ -139,6 +145,7 @@ cc_library_static {
         "-Wno-defaulted-function-deleted",
         "-Wno-deprecated-declarations",
     ],
+    export_include_dirs: ["."],
     stl: "libc++_static",
     sdk_version: "current",
     apex_available: ["com.android.ondevicepersonalization"],
@@ -163,5 +170,46 @@ filegroup {
     ],
     visibility: [
       "//packages/modules/OnDevicePersonalization:__subpackages__"
+    ],
+}
+
+cc_test {
+    name: "fcp_plan_engine_test",
+    srcs: [
+        "fcp/client/engine/tflite_plan_engine_test.cc",
+        "fcp/client/test_helpers.cc",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "federated-compute-cc-proto-lite",
+        "libgmock",
+        "libbase_ndk",
+        "libprotobuf-cpp-lite-ndk",
+        "liblog",
+        "libc++fs", // used by filesystem
+    ],
+    whole_static_libs: [
+        "libfederatedcompute",
+    ],
+    shared_libs: [
+        "libcurl",
+        "libcrypto",
+    ],
+    header_libs: [
+        "libeigen",
+    ],
+    stl: "libc++_static",
+    data: [
+        "fcp/testdata/federation_client_only_plan.pb",
+        "fcp/testdata/federation_proxy_train_examples.pb",
+        "fcp/testdata/federation_test_checkpoint.client.ckp",
+        "fcp/testdata/federation_test_select_checkpoints.pb",
+    ],
+    cflags: [
+        "-Wno-unused-parameter",
+        "-Wno-ignored-qualifiers",
+        "-Wno-missing-field-initializers",
     ],
 }
