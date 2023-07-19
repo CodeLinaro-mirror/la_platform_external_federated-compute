@@ -87,7 +87,6 @@ cc_library {
     },
     static_libs: [
         "tensorflow_core_proto_cpp_lite",
-        "libprotobuf-cpp-lite-ndk",
     ],
     shared_libs: [
         "liblog",
@@ -120,12 +119,13 @@ cc_library_static {
         "fcp/client/engine/tf_*.cc",
         "fcp/tensorflow/tf_session.cc",
     ],
-    static_libs:[
+    static_libs: [
         "federated-compute-cc-proto-lite",
     ],
     whole_static_libs: [
         "libtflite_flex_delegate",
     ],
+    export_include_dirs: ["."],
     header_libs: [
         "flatbuffer_headers",
         "libeigen",
@@ -145,7 +145,6 @@ cc_library_static {
         "-Wno-defaulted-function-deleted",
         "-Wno-deprecated-declarations",
     ],
-    export_include_dirs: ["."],
     stl: "libc++_static",
     sdk_version: "current",
     apex_available: ["com.android.ondevicepersonalization"],
@@ -156,7 +155,7 @@ filegroup {
     name: "fcp_native_wrapper",
     srcs: ["fcp/java_src/main/java/com/google/fcp/client/CallFromNativeWrapper.java"],
     visibility: [
-      "//packages/modules/OnDevicePersonalization:__subpackages__"
+        "//packages/modules/OnDevicePersonalization:__subpackages__",
     ],
 }
 
@@ -169,7 +168,7 @@ filegroup {
         "fcp/testdata/federation_test_select_checkpoints.pb",
     ],
     visibility: [
-      "//packages/modules/OnDevicePersonalization:__subpackages__"
+        "//packages/modules/OnDevicePersonalization:__subpackages__",
     ],
 }
 
@@ -177,6 +176,8 @@ cc_test {
     name: "fcp_plan_engine_test",
     srcs: [
         "fcp/client/engine/tflite_plan_engine_test.cc",
+        "fcp/client/engine/example_query_plan_engine_test.cc",
+        "fcp/tensorflow/file_descriptor_filesystem_test.cc",
         "fcp/client/test_helpers.cc",
     ],
     test_suites: [
@@ -188,6 +189,7 @@ cc_test {
         "libbase_ndk",
         "libprotobuf-cpp-lite-ndk",
         "liblog",
+        "tensorflow_abseil",
         "libc++fs", // used by filesystem
     ],
     whole_static_libs: [

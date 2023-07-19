@@ -122,15 +122,17 @@ class TfLitePlanEngineTest : public testing::Test {
     FederatedComputeIORouter io_router =
         client_only_plan_.phase().federated_compute();
     if (!io_router.input_filepath_tensor_name().empty()) {
-      (*inputs_)[io_router.input_filepath_tensor_name()] =
-          checkpoint_input_filename_;
+      (*inputs_)[io_router.input_filepath_tensor_name()] = checkpoint_input_fd_;
     }
     checkpoint_output_filename_ =
         files_impl_.CreateTempFile("output", ".ckp").value();
     ASSERT_EQ(std::filesystem::file_size(checkpoint_output_filename_), 0);
+    int fd = open(checkpoint_output_filename_.c_str(), O_WRONLY);
+    ASSERT_NE(-1, fd);
+    checkpoint_output_fd_ = absl::StrCat("fd:///", fd);
     if (!io_router.output_filepath_tensor_name().empty()) {
       (*inputs_)[io_router.output_filepath_tensor_name()] =
-          checkpoint_output_filename_;
+          checkpoint_output_fd_;
     }
 
     for (const auto& tensor_spec :
@@ -146,6 +148,9 @@ class TfLitePlanEngineTest : public testing::Test {
     client_only_plan_ = std::move(artifacts->plan);
     dataset_ = std::move(artifacts->dataset);
     checkpoint_input_filename_ = artifacts->checkpoint_filepath;
+    int fd = open(checkpoint_input_filename_.c_str(), O_RDONLY);
+    ASSERT_NE(-1, fd);
+    checkpoint_input_fd_ = absl::StrCat("fd:///", fd);
   }
 
   void ComputeDatasetStats(const std::string& collection_uri) {
@@ -177,6 +182,8 @@ class TfLitePlanEngineTest : public testing::Test {
   Dataset dataset_;
   std::string checkpoint_input_filename_;
   std::string checkpoint_output_filename_;
+  std::string checkpoint_input_fd_;
+  std::string checkpoint_output_fd_;
 
   int num_examples_ = 0;
   int example_bytes_ = 0;
@@ -209,7 +216,6 @@ TEST_F(TfLitePlanEngineTest, SimpleAggPlanSucceeds) {
   engine::PlanResult result = plan_engine.RunPlan(
       client_only_plan_.phase().tensorflow_spec(),
       client_only_plan_.tflite_graph(), std::move(inputs_), output_names_);
-  FCP_LOG(INFO) << "**** plan result " << result.original_status;
 
   EXPECT_THAT(result.outcome, PlanOutcome::kSuccess);
   EXPECT_THAT(result.output_tensors.size(), 0);
