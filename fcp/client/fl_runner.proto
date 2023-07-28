@@ -45,6 +45,10 @@ message FLRunnerResult {
   }
 
   ContributionResult contribution_result = 5;
+
+  // Debug message will be present if ContributionResult is FAIL.
+  string error_message = 6;
+
   reserved 2, 3;
 }
 

@@ -267,7 +267,7 @@ TEST_F(ExampleQueryPlanEngineTest, PlanSucceeds) {
   EXPECT_THAT(result.outcome, PlanOutcome::kSuccess);
 
   auto tensors = ReadTensors(output_checkpoint_filename_);
-  // ASSERT_OK(tensors);
+  ASSERT_TRUE(tensors.ok());
   tf::Tensor int_tensor = tensors.value()[kOutputIntTensorName];
   ASSERT_EQ(int_tensor.shape(), tf::TensorShape({2}));
   ASSERT_EQ(int_tensor.dtype(), tf::DT_INT64);
@@ -360,7 +360,7 @@ TEST_F(ExampleQueryPlanEngineTest, MultipleQueries) {
 
   auto tensors = ReadTensors(output_checkpoint_filename_);
   // ASSERT_OK is not supported in AOSP.
-  // ASSERT_OK(tensors);
+  ASSERT_TRUE(tensors.ok());
   tf::Tensor int_tensor = tensors.value()[kOutputIntTensorName];
   ASSERT_EQ(int_tensor.shape(), tf::TensorShape({2}));
   ASSERT_EQ(int_tensor.dtype(), tf::DT_INT64);

@@ -116,7 +116,9 @@ cc_library_static {
     exclude_srcs: [
         "fcp/**/*test*.cc",
         "fcp/client/fake_*.cc",
-        "fcp/client/engine/tf_*.cc",
+        // Exclude tfmobile engine dependencies.
+        "fcp/client/engine/tf_wrapper.cc",
+        "fcp/client/engine/simple_plan_engine.cc",
         "fcp/tensorflow/tf_session.cc",
     ],
     static_libs: [

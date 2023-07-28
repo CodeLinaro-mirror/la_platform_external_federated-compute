@@ -280,6 +280,9 @@ absl::StatusOr<FLRunnerResult> RunFederatedComputation(
     fl_runner_result.set_contribution_result(FLRunnerResult::SUCCESS);
   } else {
     fl_runner_result.set_contribution_result(FLRunnerResult::FAIL);
+    std::string error_message = std::string{
+        plan_result_and_checkpoint_file.plan_result.original_status.message()};
+    fl_runner_result.set_error_message(error_message);
   }
   return fl_runner_result;
 }

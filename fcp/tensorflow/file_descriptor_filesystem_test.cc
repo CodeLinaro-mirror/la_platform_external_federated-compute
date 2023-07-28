@@ -28,7 +28,7 @@ class FileDescriptorFileSystemTest : public ::testing::Test {
  protected:
   void TearDown() override {
     if (fd_ != -1) {
-      close(fd_);
+      ASSERT_NE(-1, close(fd_));
     }
   }
 
