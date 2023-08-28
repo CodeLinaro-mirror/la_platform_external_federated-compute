@@ -497,6 +497,9 @@ message TensorflowSpec {
   // Note: tensors specified via this message should not be included in
   // input_tensor_specs.
   map<string, tensorflow.TensorProto> constant_inputs = 5;
+
+  // Specifies an example selection procedure.
+  ExampleSelector example_selector = 6;
 }
 
 // ExampleQuerySpec message describes client execution that issues example
