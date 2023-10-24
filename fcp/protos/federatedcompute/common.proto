@@ -114,7 +114,31 @@ enum ResourceCompressionFormat {
 
 // Currently empty message which is sent when client (device) is rejected for
 // participation and is not assigned a task.
-message RejectionInfo {}
+// Next id: 1003
+message RejectionInfo {
+
+  RejectionReason.Enum reason = 1001;
+
+  // Metadata for client to take next action.
+  oneof metadata {
+    // Retry after a period of time.
+    RetryWindow retry_window = 1002;
+  }
+}
+
+// Next id: 3
+message RejectionReason {
+  enum Enum {
+    // Unknown status.
+    UNKNOWN = 0;
+
+    // There is no available task to join.
+    NO_TASK_AVAILABLE = 1;
+
+    // No permission to do the operation.
+    UNAUTHORIZED = 2;
+  }
+}
 
 // A suggestion to the client when to retry the connection to the service next
 // time
