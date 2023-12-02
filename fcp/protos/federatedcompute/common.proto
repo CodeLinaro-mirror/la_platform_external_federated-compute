@@ -117,7 +117,7 @@ enum ResourceCompressionFormat {
 
 // Currently empty message which is sent when client (device) is rejected for
 // participation and is not assigned a task.
-// Next id: 1003
+// Next id: 1004
 message RejectionInfo {
 
   RejectionReason.Enum reason = 1001;
@@ -126,10 +126,26 @@ message RejectionInfo {
   oneof metadata {
     // Retry after a period of time.
     RetryWindow retry_window = 1002;
+
+    // The field is used when the RejectionReason is UNAUTHENTICATED.
+    AuthenticationMetadata auth_metadata = 1003;
   }
 }
 
-// Next id: 3
+// The metadata used to authenticate a device.
+// Next Id: 2
+message AuthenticationMetadata {
+  KeyAttestationAuthMetadata key_attestation_metadata = 1;
+}
+
+// The metadata to authenticate with key attestation.
+// Next Id: 2
+message KeyAttestationAuthMetadata {
+  // The challenge to generate hardware-backed key pairs on device.
+  bytes challenge = 1;
+}
+
+// Next id: 4
 message RejectionReason {
   enum Enum {
     // Unknown status.
@@ -140,6 +156,9 @@ message RejectionReason {
 
     // No permission to do the operation.
     UNAUTHORIZED = 2;
+
+    // The device is not authenticated to the server.
+    UNAUTHENTICATED = 3;
   }
 }
 
