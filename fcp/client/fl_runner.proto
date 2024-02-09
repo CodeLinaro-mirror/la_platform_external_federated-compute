@@ -45,11 +45,42 @@ message FLRunnerResult {
   }
 
   ContributionResult contribution_result = 5;
-
-  // Debug message will be present if ContributionResult is FAIL.
-  string error_message = 6;
-
   reserved 2, 3;
+
+
+  // All fields below are added by OnDevicePersonalization module for logging and
+  // debugging purpose.
+  // Debug message will be present if ContributionResult is FAIL.
+  string error_message = 200;
+
+  enum ErrorStatus {
+    ERROR_STATUS_UNSPECIFIED = 0;
+    // A TensorFlow error occurred.
+    TENSORFLOW_ERROR = 1;
+    // The input parameters are invalid.
+    INVALID_ARGUMENT = 2;
+    // An example iterator error occurred.
+    EXAMPLE_ITERATOR_ERROR = 3;
+    // Not eligible to execute task.
+    NOT_ELIGIBLE = 4;
+  }
+
+  // Used to populate error happens in c++ to java code. Mainly for debug and
+  // logging purpose.
+  ErrorStatus error_status = 201;
+
+  message ExampleStats {
+    // For TensorlowSpec-based plans, this refers to the overall number of
+    // elements returned by all ExampleIterator::Next() calls. For
+    // ExampleQuerySpec-based plans, this refers to the total number of row counts
+    // calculated at example store layer and passed via ExampleQueryResults.
+    int32 example_count = 1;
+    int64 example_size_bytes = 2;
+  }
+
+  // Used to record the stats of examples used in computation. Mainly used for
+  // debug and logging purpose.
+  ExampleStats example_stats = 202;
 }
 
 // A suggestion to the client when to retry the connection to the service next
