@@ -99,7 +99,7 @@ message Signature {}
 // Report result request.
 // The url to report result under v1 API is:
 // https://{host}/taskassignment/v1/population/{populationName}/task/{taskId}/aggregation/{aggregationId}/task-assignment/{assignmentId}:report-result
-// Next Id: 2
+// Next Id: 3
 message ReportResultRequest {
   enum Result {
     // Unknown
@@ -116,6 +116,9 @@ message ReportResultRequest {
   }
 
   Result result = 1;
+
+  // The client's capabilities when uploading result.
+  google.internal.federatedcompute.v1.ResourceCapabilities resource_capabilities = 2;
 }
 
 // Report result response.
