@@ -189,7 +189,6 @@ cc_test {
         "libprotobuf-cpp-lite-ndk",
         "liblog",
         "tensorflow_abseil",
-        "libc++fs", // used by filesystem
     ],
     whole_static_libs: [
         "libfederatedcompute",
