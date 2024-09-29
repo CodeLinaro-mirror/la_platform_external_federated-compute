@@ -1,0 +1,51 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
+ *
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * <p>Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+syntax = "proto3";
+
+package google.ondevicepersonalization.federatedcompute.proto;
+
+import "fcp/protos/federatedcompute/common.proto";
+import "fcp/protos/plan.proto";
+import "fcp/protos/ondevicepersonalization/eligibility_spec.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.google.ondevicepersonalization.federatedcompute.proto";
+option java_multiple_files = true;
+
+// Report exception request.
+// The url to report exception counts under v1 API is:
+// https://{host}/debugreporting/v1/exceptions:report-exceptions
+// Next Id: 4
+message ReportExceptionRequest {
+   // Request time for this current request in UTC (as seconds since epoch)
+   google.protobuf.Timestamp request_timestamp = 1;
+
+   // Last successful report by device in UTC (as seconds since epoch)
+   google.protobuf.Timestamp last_reported_timestamp = 2;
+
+  // The client's capabilities when uploading result.
+  google.internal.federatedcompute.v1.ResourceCapabilities resource_capabilities = 3;
+}
+
+// Report exception response.
+// Next id: 3
+message ReportExceptionResponse {
+  // Upload result instruction on succeeded.
+  google.internal.federatedcompute.v1.UploadInstruction upload_instruction = 1;
+
+  // Rejection reason.
+  google.internal.federatedcompute.v1.RejectionInfo rejection_info = 2;
+}
