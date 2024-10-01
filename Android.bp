@@ -49,6 +49,7 @@ java_library_static {
     srcs: [
         "fcp/protos/ondevicepersonalization/task_assignments.proto",
         "fcp/protos/ondevicepersonalization/eligibility_spec.proto",
+        "fcp/protos/ondevicepersonalization/exception_reporting.proto",
         "fcp/protos/federatedcompute/common.proto",
         "fcp/protos/plan.proto",
         "fcp/client/**/*.proto",

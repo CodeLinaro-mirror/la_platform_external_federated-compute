@@ -133,22 +133,8 @@ message ReportResultRequest {
 // Report result response.
 message ReportResultResponse {
   // Upload result instruction on succeeded.
-  UploadInstruction upload_instruction = 1;
+  google.internal.federatedcompute.v1.UploadInstruction upload_instruction = 1;
 
   // Rejection reason.
   google.internal.federatedcompute.v1.RejectionInfo rejection_info = 2;
-}
-
-// The upload instruction.
-// Next id: 4
-message UploadInstruction {
-  // upload file path.
-  string upload_location = 1;
-
-  // extra head for uploading.
-  map<string, string> extra_request_headers = 2;
-
-  // The compression used for resource, or unset if the data is
-  // uncompressed.
-  google.internal.federatedcompute.v1.ResourceCompressionFormat compression_format = 3;
 }
