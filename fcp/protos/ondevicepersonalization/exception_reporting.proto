@@ -49,3 +49,26 @@ message ReportExceptionResponse {
   // Rejection reason.
   google.internal.federatedcompute.v1.RejectionInfo rejection_info = 2;
 }
+
+// Aggregated error data sent from client -> server.
+// Next id: 2
+message ErrorDataList {
+  // Payload of error-data sent from client-> server, list of aggregated error data records.
+  repeated ErrorData error_data = 1;
+}
+
+// Single entry in error data sent from client -> server.
+// Next id: 5
+message ErrorData {
+   // The error code returned by the IsolatedService.
+   uint32 error_code = 1;
+
+   // The aggregated count of error_code on the given epoch_day.
+   uint32 error_count = 2;
+
+    /** The date associated with this record of aggregated errors. */
+    uint32 epoch_day = 3;
+
+    // The version of the package of the IsolatedService.
+    uint64 service_package_version = 4;
+}
