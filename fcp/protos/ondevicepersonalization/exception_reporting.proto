@@ -18,8 +18,7 @@ syntax = "proto3";
 package google.ondevicepersonalization.federatedcompute.proto;
 
 import "fcp/protos/federatedcompute/common.proto";
-import "fcp/protos/plan.proto";
-import "fcp/protos/ondevicepersonalization/eligibility_spec.proto";
+import "fcp/protos/ondevicepersonalization/common.proto";
 import "google/protobuf/timestamp.proto";
 
 option java_package = "com.google.ondevicepersonalization.federatedcompute.proto";
@@ -27,7 +26,7 @@ option java_multiple_files = true;
 
 // Report exception request.
 // The url to report exception counts under v1 API is:
-// https://{host}/debugreporting/v1/exceptions:report-exceptions
+// https://{host}/debugreporting/v1/exceptions:report
 // Next Id: 4
 message ReportExceptionRequest {
    // Request time for this current request in UTC (as seconds since epoch)
@@ -44,7 +43,7 @@ message ReportExceptionRequest {
 // Next id: 3
 message ReportExceptionResponse {
   // Upload result instruction on succeeded.
-  google.internal.federatedcompute.v1.UploadInstruction upload_instruction = 1;
+  UploadInstruction upload_instruction = 1;
 
   // Rejection reason.
   google.internal.federatedcompute.v1.RejectionInfo rejection_info = 2;
