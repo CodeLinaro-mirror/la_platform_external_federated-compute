@@ -185,11 +185,12 @@ cc_test {
     ],
     static_libs: [
         "federated-compute-cc-proto-lite",
-        "libgmock",
+        "libabsl",
         "libbase_ndk",
-        "libprotobuf-cpp-lite-ndk",
+        "libc++fs", // used by filesystem
+        "libgmock",
         "liblog",
-        "tensorflow_abseil",
+        "libprotobuf-cpp-lite-ndk",
     ],
     whole_static_libs: [
         "libfederatedcompute",

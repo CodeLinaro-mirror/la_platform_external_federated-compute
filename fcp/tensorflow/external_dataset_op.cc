@@ -17,6 +17,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/strings/str_cat.h"
 #include "absl/strings/str_format.h"
 #include "fcp/base/random_token.h"
 #include "fcp/tensorflow/external_dataset.h"
