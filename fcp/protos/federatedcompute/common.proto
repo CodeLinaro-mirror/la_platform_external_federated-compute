@@ -356,18 +356,3 @@ enum Code {
   // HTTP Mapping: 500 Internal Server Error
   DATA_LOSS = 15;
 }
-
-// The upload instruction shared for use by the aggregate exception counts 
-// from the client and FL results.
-// Next id: 4
-message UploadInstruction {
-  // upload file path.
-  string upload_location = 1;
-
-  // extra head for uploading.
-  map<string, string> extra_request_headers = 2;
-
-  // The compression used for resource, or unset if the data is
-  // uncompressed.
-  google.internal.federatedcompute.v1.ResourceCompressionFormat compression_format = 3;
-}
