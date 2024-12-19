@@ -188,7 +188,6 @@ cc_test {
         "federated-compute-cc-proto-lite",
         "libabsl",
         "libbase_ndk",
-        "libc++fs", // used by filesystem
         "libgmock",
         "liblog",
         "libprotobuf-cpp-lite-ndk",
