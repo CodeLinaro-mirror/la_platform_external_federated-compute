@@ -1,3 +1,4 @@
 qiaoli@google.com
 tarading@google.com
 ymu@google.com
+include platform/system/core:/janitors/OWNERS #{LAST_RESORT_SUGGESTION}
