@@ -20,6 +20,7 @@ package google.ondevicepersonalization.federatedcompute.proto;
 import "fcp/protos/federatedcompute/common.proto";
 import "fcp/protos/plan.proto";
 import "fcp/protos/ondevicepersonalization/eligibility_spec.proto";
+import "fcp/protos/ondevicepersonalization/common.proto";
 
 option java_package = "com.google.ondevicepersonalization.federatedcompute.proto";
 option java_multiple_files = true;
@@ -133,7 +134,7 @@ message ReportResultRequest {
 // Report result response.
 message ReportResultResponse {
   // Upload result instruction on succeeded.
-  google.internal.federatedcompute.v1.UploadInstruction upload_instruction = 1;
+  UploadInstruction upload_instruction = 1;
 
   // Rejection reason.
   google.internal.federatedcompute.v1.RejectionInfo rejection_info = 2;
