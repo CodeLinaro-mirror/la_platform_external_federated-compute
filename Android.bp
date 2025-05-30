@@ -186,7 +186,6 @@ cc_test {
     ],
     static_libs: [
         "federated-compute-cc-proto-lite",
-        "libabsl",
         "libbase_ndk",
         "libgmock",
         "liblog",
