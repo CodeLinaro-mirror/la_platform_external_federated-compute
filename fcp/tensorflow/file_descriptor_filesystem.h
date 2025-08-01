@@ -78,8 +78,8 @@ class FileDescriptorFileSystem : public tensorflow::FileSystem {
   tensorflow::Status DeleteDir(const std::string& d) override;
   tensorflow::Status RenameFile(const std::string& s,
                                 const std::string& t) override;
-  tensorflow::Status CanCreateTempFile(const std::string& fname,
-                                       bool* can_create_temp_file) override;
+  tensorflow::Status HasAtomicMove(const std::string& path,
+                                   bool* has_atomic_move) override;
 };
 
 }  // namespace fcp
