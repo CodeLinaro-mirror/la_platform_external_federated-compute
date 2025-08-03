@@ -254,9 +254,8 @@ Status FileDescriptorFileSystem::RenameFile(const string& s, const string& t) {
   return errors::Unimplemented("Not implemented by the fd filesystem");
 }
 
-Status FileDescriptorFileSystem::CanCreateTempFile(const std::string& fname,
-                                                   bool* can_create_temp_file) {
-  *can_create_temp_file = false;
+Status FileDescriptorFileSystem::HasAtomicMove(const std::string& path, bool* has_atomic_move) {
+  *has_atomic_move = false;
   return OkStatus();
 }
 
