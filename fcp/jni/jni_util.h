@@ -135,7 +135,7 @@ static jbyteArray SerializeProtoToJByteArray(JNIEnv* env,
   // array. The proto data is generally small enough that this extra copy
   // shouldn't matter.
   absl::FixedArray<jbyte> buffer(length);
-  proto.SerializeToArray(buffer.data(), length);
+  FCP_CHECK(proto.SerializeToArray(buffer.data(), length));
 
   env->SetByteArrayRegion(byte_array, 0, length, buffer.data());
   FCP_CHECK(!env->ExceptionCheck());
